@@ -21,6 +21,20 @@ calcular_frecuencia <- function(bd, variable, n_niveles=9, otro="Otro"){
   return(res)
 }
 
+#' Title
+#'
+#' @param bd
+#' @param variable
+#' @param frecuencia
+#' @param n_niveles
+#' @param otro
+#' @param grafico
+#' @param color_base
+#'
+#' @return
+#' @export
+#'
+#' @examples
 graficar_frecuencia <- function(bd,
                                 variable,
                                 frecuencia=n,
