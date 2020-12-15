@@ -7,6 +7,7 @@
 graficar_frecuencia(
   bd,
   variable,
+  columnas,
   frecuencia = n,
   n_niveles = 9,
   otro = "Otro",
