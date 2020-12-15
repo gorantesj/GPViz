@@ -107,12 +107,7 @@ frecuencia_gota <- function(bd, x, y, color_base = "#912F40") {
       labels = scales::comma_format(),
       name = "Frecuencia"
     ) +
-    coord_flip() +
-    theme(
-      panel.background = element_blank(),
-      axis.ticks = element_blank(),
-      panel.grid.major.x = element_line(color = "grey50", size = .1)
-    )
+    coord_flip()
   return(g)
 }
 
