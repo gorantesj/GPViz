@@ -7,3 +7,8 @@ formatear_num <- function(num) {
   )
   return(num)
 }
+
+formatear_escala_entera <-function(x, n = 4) {
+  l <- pretty(x, n)
+  l[abs(l %% 1) < .Machine$double.eps ^ 0.5]
+}

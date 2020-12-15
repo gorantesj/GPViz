@@ -77,7 +77,11 @@ frecuencia_barras <- function(bd, x, y, color_base = "#912F40") {
     ggplot(aes(x = {{ x }}, y = {{ y }})) +
     geom_bar(stat = "identity", fill = color_base, alpha = .8) +
     scale_y_continuous(
-      labels = scales::comma_format(),
+      # breaks = function(y, n = 4) {
+      #   l <- pretty(y, n)
+      #   l[abs(l %% 1) < .Machine$double.eps ^ 0.5]
+      # },
+      breaks=formatear_escala_entera(y,n=4),
       name = "Frecuencia"
     ) +
     # scale_x_discrete(name=stringr::str_to_sentence(eje_x)) +
