@@ -22,9 +22,9 @@ calcular_frecuencia <- function(bd, variable, n_niveles = 9, otro = "Otro") {
   return(res)
 }
 
-#' Title
+#' Graficar frecuencias estilo GP
 #'
-#' @param bd
+#' @param bd base de datos
 #' @param variable
 #' @param frecuencia
 #' @param n_niveles
