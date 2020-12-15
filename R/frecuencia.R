@@ -19,8 +19,6 @@ calcular_frecuencia <- function(bd, variables, n_niveles = 9, otro = "Otro", mul
       )) %>%
       group_by({{ variables }}) %>%
       summarise(n = sum(n))
-
-
   return(res)
 }
 
