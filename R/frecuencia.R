@@ -71,15 +71,17 @@ graficar_frecuencia <- function(bd,
 frecuencia_barras <- function(bd, x, y, color_base = "#912F40") {
   g <- bd %>%
     ggplot(aes(x = {{ x }}, y = {{ y }})) +
-    geom_bar(stat = "identity", fill = color_base, alpha=.8) +
+    geom_bar(stat = "identity", fill = color_base, alpha = .8) +
     scale_y_continuous(
       labels = scales::comma_format(),
       name = "Frecuencia"
     ) +
     # scale_x_discrete(name=stringr::str_to_sentence(eje_x)) +
-    geom_hline(yintercept = 0,
-               color= colortools::complementary(color=color_base, plot = F)[[2]],
-               size=1.5) +
+    geom_hline(
+      yintercept = 0,
+      color = colortools::complementary(color = color_base, plot = F)[[2]],
+      size = 1.5
+    ) +
     coord_flip() +
     theme(
       panel.background = element_blank(),
@@ -111,10 +113,10 @@ frecuencia_paleta <- function(bd, x, y, color_base = "#912F40") {
     ggplot() +
     geom_segment(aes(xend = {{ x }}, x = {{ x }}, y = 0, yend = {{ y }}), size = 10 / nrow(bd), lineend = "round") +
     geom_point(aes(x = {{ x }}, y = {{ y }}),
-      color = color_base, size = 3.1 * 11*.75 / .pt
+      color = color_base, size = 3.1 * 11 * .75 / .pt
     ) +
     geom_text(aes(x = {{ x }}, y = {{ y }}, label = formatear_num({{ y }})),
-      color = "white", size = 11*.75/.pt
+      color = "white", size = 11 * .75 / .pt
     ) +
     scale_size_area() +
     scale_y_continuous(
