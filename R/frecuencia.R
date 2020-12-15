@@ -43,7 +43,9 @@ graficar_frecuencia <- function(bd,
                                 n_niveles = 9,
                                 otro = "Otro",
                                 grafico = "barras",
-                                color_base = "#912F40") {
+                                color_base = "#912F40",
+                                titulo="",
+                                subtitulo="") {
   if (!missing(columnas)) {
     bd <- transformar_rm(bd, variables = {{ columnas }}, nombre = deparse(substitute(variable)))
   }
@@ -69,6 +71,7 @@ graficar_frecuencia <- function(bd,
       color_base = color_base
     )
   )
+  g <- g+labs(title = titulo, subtitle = subtitulo)
   return(g)
 }
 
@@ -77,11 +80,10 @@ frecuencia_barras <- function(bd, x, y, color_base = "#912F40") {
     ggplot(aes(x = {{ x }}, y = {{ y }})) +
     geom_bar(stat = "identity", fill = color_base, alpha = .8) +
     scale_y_continuous(
-      # breaks = function(y, n = 4) {
-      #   l <- pretty(y, n)
-      #   l[abs(l %% 1) < .Machine$double.eps ^ 0.5]
-      # },
-      breaks=formatear_escala_entera(y,n=4),
+      breaks = function(y, n = 4) {
+        l <- pretty(y, n)
+        l[abs(l %% 1) < .Machine$double.eps ^ 0.5]
+      },
       name = "Frecuencia"
     ) +
     # scale_x_discrete(name=stringr::str_to_sentence(eje_x)) +
@@ -90,12 +92,7 @@ frecuencia_barras <- function(bd, x, y, color_base = "#912F40") {
       color = colortools::complementary(color = color_base, plot = F)[[2]],
       size = 1.5
     ) +
-    coord_flip() +
-    theme(
-      panel.background = element_blank(),
-      axis.ticks = element_blank(),
-      panel.grid.major.x = element_line(color = "grey50", size = .1)
-    )
+    coord_flip()
   return(g)
 }
 
