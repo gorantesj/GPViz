@@ -10,11 +10,6 @@
 #' @import dplyr ggplot2
 #' @examples
 calcular_frecuencia <- function(bd, variables, n_niveles = 9, otro = "Otro", multiples = F) {
-  if (multiples) {
-
-
-  }
-  else {
     res <- bd %>%
       count({{ variables }}) %>%
       arrange(desc(n)) %>%
@@ -24,7 +19,7 @@ calcular_frecuencia <- function(bd, variables, n_niveles = 9, otro = "Otro", mul
       )) %>%
       group_by({{ variables }}) %>%
       summarise(n = sum(n))
-  }
+
 
   return(res)
 }
