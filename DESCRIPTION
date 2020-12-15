@@ -19,6 +19,7 @@ Config/testthat/edition: 2
 Imports: 
     dplyr,
     ggplot2,
-    scales
+    scales,
+    colortools
 URL: https://github.com/gorantesj/GPViz
 BugReports: https://github.com/gorantesj/GPViz/issues
