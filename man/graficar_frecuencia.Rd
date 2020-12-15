@@ -2,7 +2,7 @@
 % Please edit documentation in R/frecuencia.R
 \name{graficar_frecuencia}
 \alias{graficar_frecuencia}
-\title{Title}
+\title{Graficar frecuencias estilo GP}
 \usage{
 graficar_frecuencia(
   bd,
@@ -15,11 +15,13 @@ graficar_frecuencia(
 )
 }
 \arguments{
+\item{bd}{base de datos}
+
 \item{color_base}{}
 }
 \value{
 
 }
 \description{
-Title
+Graficar frecuencias estilo GP
 }
