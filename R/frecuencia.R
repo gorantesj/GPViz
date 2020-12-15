@@ -9,18 +9,18 @@
 #' @export
 #' @import dplyr ggplot2
 #' @examples
-calcular_frecuencia <- function(bd, variables, n_niveles = 9, otro = "Otro", multiples=F) {
-  if(multiples){
+calcular_frecuencia <- function(bd, variables, n_niveles = 9, otro = "Otro", multiples = F) {
+  if (multiples) {
 
 
   }
-  else{
+  else {
     res <- bd %>%
       count({{ variables }}) %>%
       arrange(desc(n)) %>%
       mutate({{ variables }} := if_else(row_number() <= n_niveles,
-                                       as.character({{ variables }}),
-                                       otro
+        as.character({{ variables }}),
+        otro
       )) %>%
       group_by({{ variables }}) %>%
       summarise(n = sum(n))
@@ -51,9 +51,8 @@ graficar_frecuencia <- function(bd,
                                 otro = "Otro",
                                 grafico = "barras",
                                 color_base = "#912F40") {
-  if(!missing(columnas)){
-    bd <- transformar_rm(bd, variables = {{columnas}}, nombre=deparse(substitute(variable)))
-
+  if (!missing(columnas)) {
+    bd <- transformar_rm(bd, variables = {{ columnas }}, nombre = deparse(substitute(variable)))
   }
   resEst <- calcular_frecuencia(bd,
     variable = {{ variable }},
@@ -123,7 +122,7 @@ frecuencia_gota <- function(bd, x, y, color_base = "#912F40") {
 frecuencia_paleta <- function(bd, x, y, color_base = "#912F40") {
   g <- bd %>%
     ggplot() +
-    geom_segment(aes(xend = {{ x }}, x = {{ x }}, y = 0, yend = {{ y }}), size = 10 / nrow(bd), lineend = "round", color=colortools::complementary(color=color_base, plot = F)[[2]]) +
+    geom_segment(aes(xend = {{ x }}, x = {{ x }}, y = 0, yend = {{ y }}), size = 10 / nrow(bd), lineend = "round", color = colortools::complementary(color = color_base, plot = F)[[2]]) +
     geom_point(aes(x = {{ x }}, y = {{ y }}),
       color = color_base, size = 3.1 * 11 * .75 / .pt
     ) +
@@ -144,9 +143,11 @@ frecuencia_paleta <- function(bd, x, y, color_base = "#912F40") {
   return(g)
 }
 
-transformar_rm <- function(bd, variables, nombre){
+transformar_rm <- function(bd, variables, nombre) {
   res <- bd %>%
-    tidyr::pivot_longer(cols = {{variables}},
-                        values_to=nombre)
+    tidyr::pivot_longer(
+      cols = {{ variables }},
+      values_to = nombre
+    )
   return(res)
 }
