@@ -17,6 +17,8 @@ Suggests:
     testthat (>= 2.0.0)
 Config/testthat/edition: 2
 Imports: 
-    forcats
+    dplyr,
+    ggplot2,
+    scales
 URL: https://github.com/gorantesj/GPViz
 BugReports: https://github.com/gorantesj/GPViz/issues
