@@ -105,7 +105,10 @@ frecuencia_gota <- function(bd, x, y, color_base = "#912F40") {
     # geom_text(hjust=0,vjust=0) %>%
     geom_segment(stat = "identity", color = color_base, size = 10 / nrow(bd), lineend = "round") +
     scale_y_continuous(
-      labels = scales::comma_format(),
+      breaks = function(y, n = 4) {
+        l <- pretty(y, n)
+        l[abs(l %% 1) < .Machine$double.eps ^ 0.5]
+      },
       name = "Frecuencia"
     ) +
     coord_flip()
@@ -124,8 +127,10 @@ frecuencia_paleta <- function(bd, x, y, color_base = "#912F40") {
     ) +
     scale_size_area() +
     scale_y_continuous(
-      labels = scales::comma_format(),
-      name = "Frecuencia"
+      breaks = function(y, n = 4) {
+        l <- pretty(y, n)
+        l[abs(l %% 1) < .Machine$double.eps ^ 0.5]
+      },      name = "Frecuencia"
     ) +
     coord_flip()
   return(g)
