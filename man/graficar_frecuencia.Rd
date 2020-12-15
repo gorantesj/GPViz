@@ -12,7 +12,10 @@ graficar_frecuencia(
   n_niveles = 9,
   otro = "Otro",
   grafico = "barras",
-  color_base = "#912F40"
+  color_base = "#912F40",
+  titulo = "",
+  subtitulo = "",
+  tema = "GP"
 )
 }
 \arguments{

@@ -45,7 +45,8 @@ graficar_frecuencia <- function(bd,
                                 grafico = "barras",
                                 color_base = "#912F40",
                                 titulo="",
-                                subtitulo="") {
+                                subtitulo="",
+                                tema="GP") {
   if (!missing(columnas)) {
     bd <- transformar_rm(bd, variables = {{ columnas }}, nombre = deparse(substitute(variable)))
   }
@@ -71,7 +72,9 @@ graficar_frecuencia <- function(bd,
       color_base = color_base
     )
   )
-  g <- g+labs(title = titulo, subtitle = subtitulo)
+  g <- g + labs(title = titulo, subtitle = subtitulo)
+  g <- g %>%
+    aplicar_tema(grafico = grafico, tema = tema)
   return(g)
 }
 
