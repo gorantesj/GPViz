@@ -12,7 +12,7 @@
 calcular_frecuencia <- function(bd, variable, n_niveles = 9, otro = "Otro") {
   res <- bd %>%
     count({{ variable }}) %>%
-    arrange(n) %>%
+    arrange(desc(n)) %>%
     mutate({{ variable }} := if_else(row_number() <= n_niveles,
       as.character({{ variable }}),
       otro
