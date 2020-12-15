@@ -102,6 +102,7 @@ frecuencia_barras <- function(bd, x, y, color_base = "#912F40") {
 frecuencia_gota <- function(bd, x, y, color_base = "#912F40") {
   g <- bd %>%
     ggplot(aes(xend = {{ x }}, x = {{ x }}, y = 0, yend = {{ y }})) +
+    geom_text(hjust=0,vjust=0)
     geom_segment(stat = "identity", color = color_base, size = 10 / nrow(bd), lineend = "round") +
     scale_y_continuous(
       labels = scales::comma_format(),
@@ -126,12 +127,7 @@ frecuencia_paleta <- function(bd, x, y, color_base = "#912F40") {
       labels = scales::comma_format(),
       name = "Frecuencia"
     ) +
-    coord_flip() +
-    theme(
-      panel.background = element_blank(),
-      axis.ticks = element_blank(),
-      panel.grid.major.x = element_line(color = "grey50", size = .1)
-    )
+    coord_flip()
   return(g)
 }
 
