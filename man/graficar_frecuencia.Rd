@@ -19,13 +19,40 @@ graficar_frecuencia(
 )
 }
 \arguments{
-\item{bd}{base de datos}
+\item{bd}{el data frame de entrada}
 
-\item{color_base}{}
+\item{variable}{la nombre de variable a procesar}
+
+\item{frecuencia}{esta es la variable que nos indica la frecuencia de cierto elemento
+en un data frame}
+
+\item{n_niveles}{esta es un filtro de niveles, es decir filtra los n_niveles más altos,
+ademmás pertenece al par\'{a}metro de la funci\'{o}n calcular_frecuencia}
+
+\item{otro}{este parámetro es para poner el nombre la la variable "Otro" "otros"
+y que se muestre.}
+
+\item{grafico}{este par\'{a}mtero nos indica cual es gr\'{a}fico a elegir: entre
+barras, gota y paleta. Por defecto es barras.}
+
+\item{color_base}{el color del gr\'{a}fico, por defecto es color Gerencia del poder.}
 }
 \value{
-
+regresa un gráfico ggplot2
 }
 \description{
 Graficar frecuencias estilo GP
+}
+\section{Quasiquotation}{
+
+
+\code{graficar_frecuencia()} es una funci\'{o}n \link[rlang:nse-defuse]{quoting function}. Esto significa
+que se utiliza en el contexto del proceso de graficación de elementos ggplot2.
+}
+
+\examples{
+graficar_frecuencia(mtcars, hp, frecuencia = n, n_niveles = 9)
+}
+\author{
+Gerardo Orantes Jordan, \email{gorantes@gerenciadelpoder.com.mx}
 }

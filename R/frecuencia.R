@@ -16,8 +16,7 @@
 #' de cada variable seleccionada
 #' @export
 #' @import dplyr ggplot2
-#' @examples
-#' calcular_frecuencia(mtcars, hp)
+
 calcular_frecuencia <- function(bd, variables, n_niveles = 9, otro = "Otro", multiples = F) {
     res <- bd %>%
       count({{ variables }}) %>%
@@ -52,9 +51,7 @@ calcular_frecuencia <- function(bd, variables, n_niveles = 9, otro = "Otro", mul
 #' @return regresa un gráfico ggplot2
 #' @export
 #'
-#' @examples
-#'graficar_frecuencia(mtcars, hp, frecuencia = n, n_niveles = 9)
-
+#'
 graficar_frecuencia <- function(bd,
                                 variable,
                                 columnas,
@@ -111,8 +108,6 @@ graficar_frecuencia <- function(bd,
 #' @return regresa un gráfico de barras ggplot2 a utilizar con frecuencia
 #' @export
 #'
-#' @examples
-#' frecuencia_barras(mtcars, hp, mpg)
 frecuencia_barras <- function(bd, x, y, color_base = "#912F40") {
   g <- bd %>%
     ggplot(aes(x = {{ x }}, y = {{ y }})) +
@@ -146,8 +141,7 @@ frecuencia_barras <- function(bd, x, y, color_base = "#912F40") {
 #' @return regresa un gráfico de barras ggplot2 a utilizar con frecuencia
 #' @export
 #'
-#' @examples
-#' frecuencia_gota(mtcars, carb, gear)
+
 frecuencia_gota <- function(bd, x, y, color_base = "#912F40") {
   color_texto <- if_else(plotwidgets::col2hsl(color_base)["L",1]>.7,
                          "black",
@@ -182,8 +176,7 @@ frecuencia_gota <- function(bd, x, y, color_base = "#912F40") {
 #' @return regresa un gráfico de barras ggplot2 a utilizar con frecuencia
 #' @export
 #'
-#' @examples
-#' frecuencia_paleta(mtcars, mpg, gear)
+
 frecuencia_paleta <- function(bd, x, y, color_base = "#912F40") {
   color_texto <- if_else(plotwidgets::col2hsl(color_base)["L",1]>.7,
                          "black",

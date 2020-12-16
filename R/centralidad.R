@@ -13,8 +13,7 @@
 #' @return el calculo de medida central como un data frame con la variable dentro del grupo
 #' @export
 #' @import dplyr ggplot2
-#' @examples
-#' calcular_mtc(mtcars, mpg, wt)
+
 calcular_mtc <- function(bd, variable, grupo, medida = "media") {
   funcion <- switch(medida, media = mean, mediana = median)
   res <- bd %>%
@@ -40,8 +39,7 @@ calcular_mtc <- function(bd, variable, grupo, medida = "media") {
 #' @return el gr\'{a}fico de medida central como un data frame con la variable dentro del grupo.
 #' @export
 #' @import dplyr ggplot2
-#' @examples
-#' graficar_mtc(mtcars, mpg, wt)
+
 graficar_mtc <- function(bd, variable, grupo, medida = "media", grafico = "barras", color_base = "#912F40") {
   resEst <- calcular_mtc(bd,
     variable = {{ variable }},
@@ -71,8 +69,7 @@ graficar_mtc <- function(bd, variable, grupo, medida = "media", grafico = "barra
 #' @return el gr\'{a}fico de medida central como un data frame con la variable dentro del grupo.
 #' @export
 #' @import dplyr ggplot2
-#' @examples
-#' mtc_barras(mtcars, x = mpg, y = wt)
+
 mtc_barras <- function(bd, x, y, color_base = "#912F40") {
   g <- bd %>%
     mutate("{{x}}" := forcats::fct_reorder(as.factor({{ x }}), {{ y }})) %>%

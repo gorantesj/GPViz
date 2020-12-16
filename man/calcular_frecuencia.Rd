@@ -2,16 +2,39 @@
 % Please edit documentation in R/frecuencia.R
 \name{calcular_frecuencia}
 \alias{calcular_frecuencia}
-\title{Title}
+\title{Procesaimento de calcular frecuencia}
 \usage{
 calcular_frecuencia(bd, variables, n_niveles = 9, otro = "Otro", multiples = F)
 }
 \arguments{
-\item{otro}{}
+\item{bd}{es el data frame de entrada}
+
+\item{n_niveles}{este es un número entero positivo que nos da la cantidad de
+variables a mostrar, por defecto son n_niveles = 9}
+
+\item{otro}{este parámetro es para poner el nombre la la variable "Otro" "otros"
+y que se muestre}
+
+\item{variable}{la nombre de variable a procesar}
 }
 \value{
-
+esta funcion regresa un data frame con los valores de las frecuencias, la frecuencua es n,
+de cada variable seleccionada
 }
 \description{
-Title
+Procesaimento de calcular frecuencia
+}
+\section{Quasiquotation}{
+
+
+\code{calcular_frecuencia()} es una funci\'{o}n \link[rlang:nse-defuse]{quoting function}. Esto significa
+que se utiliza en el contexto del preprocesamiento lo que facilita el trabajo con variables del
+data frame.
+}
+
+\examples{
+calcular_frecuencia(mtcars, hp)
+}
+\author{
+Gerardo Orantes Jordan, \email{gorantes@gerenciadelpoder.com.mx}
 }

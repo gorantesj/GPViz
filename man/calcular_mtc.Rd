@@ -2,16 +2,38 @@
 % Please edit documentation in R/centralidad.R
 \name{calcular_mtc}
 \alias{calcular_mtc}
-\title{Title}
+\title{Procesaimento de calcular frecuencia}
 \usage{
 calcular_mtc(bd, variable, grupo, medida = "media")
 }
 \arguments{
-\item{otro}{}
+\item{bd}{data frame de entrada}
+
+\item{variable}{variable a analizar}
+
+\item{grupo}{dentro de que subconjutunto de ellos se analiza, filtro}
+
+\item{medida}{selector entre medidas de tendencia, dejando por defecto la media}
+
+\item{otro}{el numbre de la variable "Otro/Otros... etc"}
 }
 \value{
-
+el calculo de medida central como un data frame con la variable dentro del grupo
 }
 \description{
-Title
+Procesaimento de calcular frecuencia
+}
+\section{Quasiquotation}{
+
+
+\code{calcular_mtc()} es una funci\'{o}n \link[rlang:nse-defuse]{quoting function}. Esto significa
+que se utiliza en el contexto del preprocesamiento lo que facilita el trabajo con variables del
+data frame calculando sus medidas de tendencia central.
+}
+
+\examples{
+calcular_mtc(mtcars, mpg, wt)
+}
+\author{
+Gerardo Orantes Jordan, \email{gorantes@gerenciadelpoder.com.mx}
 }
