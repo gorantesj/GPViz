@@ -4,7 +4,7 @@
 \alias{calcular_frecuencia}
 \title{Title}
 \usage{
-calcular_frecuencia(bd, variable, n_niveles = 9, otro = "Otro")
+calcular_frecuencia(bd, variables, n_niveles = 9, otro = "Otro", multiples = F)
 }
 \arguments{
 \item{otro}{}

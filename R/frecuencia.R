@@ -18,17 +18,16 @@
 #' @import dplyr ggplot2
 #' @examples
 #' calcular_frecuencia(mtcars, hp)
-
-calcular_frecuencia <- function(bd, variable, n_niveles = 9, otro = "Otro") {
-  res <- bd %>%
-    count({{ variable }}) %>%
-    arrange(desc(n)) %>%
-    mutate({{ variable }} := if_else(row_number() <= n_niveles,
-      as.character({{ variable }}),
-      otro
-    )) %>%
-    group_by({{ variable }}) %>%
-    summarise(n = sum(n))
+calcular_frecuencia <- function(bd, variables, n_niveles = 9, otro = "Otro", multiples = F) {
+    res <- bd %>%
+      count({{ variables }}) %>%
+      arrange(desc(n)) %>%
+      mutate({{ variables }} := if_else(row_number() <= n_niveles,
+        as.character({{ variables }}),
+        otro
+      )) %>%
+      group_by({{ variables }}) %>%
+      summarise(n = sum(n))
   return(res)
 }
 
@@ -59,11 +58,18 @@ graficar_frecuencia(mtcars, hp, frecuencia = n, n_niveles = 9)
 
 graficar_frecuencia <- function(bd,
                                 variable,
+                                columnas,
                                 frecuencia = n,
                                 n_niveles = 9,
                                 otro = "Otro",
                                 grafico = "barras",
-                                color_base = "#912F40") {
+                                color_base = "#912F40",
+                                titulo="",
+                                subtitulo="",
+                                tema="GP") {
+  if (!missing(columnas)) {
+    bd <- transformar_rm(bd, variables = {{ columnas }}, nombre = deparse(substitute(variable)))
+  }
   resEst <- calcular_frecuencia(bd,
     variable = {{ variable }},
     n_niveles = n_niveles,
@@ -86,6 +92,9 @@ graficar_frecuencia <- function(bd,
       color_base = color_base
     )
   )
+  g <- g + labs(title = titulo, subtitle = subtitulo)
+  g <- g %>%
+    aplicar_tema(grafico = grafico, tema = tema)
   return(g)
 }
 
@@ -108,19 +117,21 @@ graficar_frecuencia <- function(bd,
 frecuencia_barras <- function(bd, x, y, color_base = "#912F40") {
   g <- bd %>%
     ggplot(aes(x = {{ x }}, y = {{ y }})) +
-    geom_bar(stat = "identity", fill = color_base) +
+    geom_bar(stat = "identity", fill = color_base, alpha = .8) +
     scale_y_continuous(
-      labels = scales::comma_format(),
+      breaks = function(y, n = 4) {
+        l <- pretty(y, n)
+        l[abs(l %% 1) < .Machine$double.eps ^ 0.5]
+      },
       name = "Frecuencia"
     ) +
     # scale_x_discrete(name=stringr::str_to_sentence(eje_x)) +
-    geom_hline(yintercept = 0) +
-    coord_flip() +
-    theme(
-      panel.background = element_blank(),
-      axis.ticks = element_blank(),
-      panel.grid.major.x = element_line(color = "grey50", size = .1)
-    )
+    geom_hline(
+      yintercept = 0,
+      color = colortools::complementary(color = color_base, plot = F)[[2]],
+      size = 1.5
+    ) +
+    coord_flip()
   return(g)
 }
 #' Graficar frecuencia de barras con esquinas suaves estilo GP
@@ -139,19 +150,24 @@ frecuencia_barras <- function(bd, x, y, color_base = "#912F40") {
 #' @examples
 #' frecuencia_gota(mtcars, carb, gear)
 frecuencia_gota <- function(bd, x, y, color_base = "#912F40") {
+  color_texto <- if_else(plotwidgets::col2hsl(color_base)["L",1]>.7,
+                         "black",
+                         "white")
   g <- bd %>%
     ggplot(aes(xend = {{ x }}, x = {{ x }}, y = 0, yend = {{ y }})) +
-    geom_segment(stat = "identity", color = color_base, size = 10 / nrow(bd), lineend = "round") +
+    geom_text(hjust=0,vjust=0, aes(label={{x}}), nudge_x = .1,fontface="bold",
+              color=colortools::complementary(color = color_base, plot = F)[[2]]) +
+    geom_segment(stat = "identity", color = color_base, size = 24*.75/.pt, lineend = "round") +
+    geom_text(hjust=1,vjust=0.5, aes(label={{x}}, y={{y}}), size = 12*.75/.pt,
+              color=color_texto) +
     scale_y_continuous(
-      labels = scales::comma_format(),
+      breaks = function(y, n = 4) {
+        l <- pretty(y, n)
+        l[abs(l %% 1) < .Machine$double.eps ^ 0.5]
+      },
       name = "Frecuencia"
     ) +
-    coord_flip() +
-    theme(
-      panel.background = element_blank(),
-      axis.ticks = element_blank(),
-      panel.grid.major.x = element_line(color = "grey50", size = .1)
-    )
+    coord_flip()
   return(g)
 }
 #' Graficar frecuencia en paleta estilo GP
@@ -170,25 +186,36 @@ frecuencia_gota <- function(bd, x, y, color_base = "#912F40") {
 #' @examples
 #' frecuencia_paleta(mtcars, mpg, gear)
 frecuencia_paleta <- function(bd, x, y, color_base = "#912F40") {
+  color_texto <- if_else(plotwidgets::col2hsl(color_base)["L",1]>.7,
+                         "black",
+                         "white")
   g <- bd %>%
     ggplot() +
-    geom_segment(aes(xend = {{ x }}, x = {{ x }}, y = 0, yend = {{ y }}), size = 10 / nrow(bd), lineend = "round") +
+    geom_segment(aes(xend = {{ x }}, x = {{ x }}, y = 0, yend = {{ y }}),
+                 size = 10 / nrow(bd), lineend = "round",
+                 color = colortools::complementary(color = color_base, plot = F)[[2]]) +
     geom_point(aes(x = {{ x }}, y = {{ y }}),
-      color = color_base, size = 3 * 12 / .pt
+      color = color_base, size = 3.1 * 12 * .75 / .pt
     ) +
     geom_text(aes(x = {{ x }}, y = {{ y }}, label = formatear_num({{ y }})),
-      color = "white", size = 11 / .pt
+      color = color_texto, size = 12 * .75 / .pt
     ) +
     scale_size_area() +
     scale_y_continuous(
-      labels = scales::comma_format(),
-      name = "Frecuencia"
+      breaks = function(y, n = 4) {
+        l <- pretty(y, n)
+        l[abs(l %% 1) < .Machine$double.eps ^ 0.5]
+      },      name = "Frecuencia"
     ) +
-    coord_flip() +
-    theme(
-      panel.background = element_blank(),
-      axis.ticks = element_blank(),
-      panel.grid.major.x = element_line(color = "grey50", size = .1)
-    )
+    coord_flip()
   return(g)
+}
+
+transformar_rm <- function(bd, variables, nombre) {
+  res <- bd %>%
+    tidyr::pivot_longer(
+      cols = {{ variables }},
+      values_to = nombre
+    )
+  return(res)
 }
