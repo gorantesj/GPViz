@@ -53,8 +53,7 @@ calcular_frecuencia <- function(bd, variables, n_niveles = 9, otro = "Otro", mul
 #' @export
 #'
 #' @examples
-#'
-graficar_frecuencia(mtcars, hp, frecuencia = n, n_niveles = 9)
+#'graficar_frecuencia(mtcars, hp, frecuencia = n, n_niveles = 9)
 
 graficar_frecuencia <- function(bd,
                                 variable,
