@@ -72,7 +72,7 @@ graficar_mtc <- function(bd, variable, grupo, medida="media", grafico="barras", 
 #' @export
 #' @import dplyr ggplot2
 #' @examples
-#' mtc_barras(mtcars, mpg, wt)
+#' mtc_barras(mtcars, x = mpg, y = wt)
 mtc_barras <- function(bd, x, y, color_base = "#912F40") {
   g <- bd %>%
     mutate("{{x}}":=forcats::fct_reorder( as.factor({{x}}),{{y}})) %>%
