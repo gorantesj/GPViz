@@ -29,9 +29,6 @@ que se utiliza en el contexto del preprocesamiento lo que facilita el trabajo co
 data frame graficando sus medidas de tendencia central.
 }
 
-\examples{
-mtc_barras(mtcars, x = mpg, y = wt)
-}
 \author{
 Gerardo Orantes Jordan, \email{gorantes@gerenciadelpoder.com.mx}
 }

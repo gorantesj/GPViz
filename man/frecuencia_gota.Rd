@@ -28,9 +28,6 @@ que se utiliza en el contexto del proceso de graficación de elementos ggplot2 y
 esquinas suaves.
 }
 
-\examples{
-frecuencia_gota(mtcars, carb, gear)
-}
 \author{
 Gerardo Orantes Jordan, \email{gorantes@gerenciadelpoder.com.mx}
 }

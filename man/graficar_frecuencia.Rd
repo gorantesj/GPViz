@@ -50,9 +50,6 @@ Graficar frecuencias estilo GP
 que se utiliza en el contexto del proceso de graficación de elementos ggplot2.
 }
 
-\examples{
-graficar_frecuencia(mtcars, hp, frecuencia = n, n_niveles = 9)
-}
 \author{
 Gerardo Orantes Jordan, \email{gorantes@gerenciadelpoder.com.mx}
 }

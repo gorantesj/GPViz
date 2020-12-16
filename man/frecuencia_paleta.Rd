@@ -28,9 +28,6 @@ que se utiliza en el contexto del proceso de graficación de elementos ggplot2 y
 esquinas suaves. Utiliza como auxiliar dentro de las labels la funci\'{o}n \code{formatear_num()}
 }
 
-\examples{
-frecuencia_paleta(mtcars, mpg, gear)
-}
 \author{
 Gerardo Orantes Jordan, \email{gorantes@gerenciadelpoder.com.mx}
 }

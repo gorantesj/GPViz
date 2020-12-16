@@ -28,9 +28,6 @@ Graficar frecuencia de barras estilo GP
 que se utiliza en el contexto del proceso de graficación de elementos ggplot2 y es una gráfica de barras.
 }
 
-\examples{
-frecuencia_barras(mtcars, hp, mpg)
-}
 \author{
 Gerardo Orantes Jordan, \email{gorantes@gerenciadelpoder.com.mx}
 }

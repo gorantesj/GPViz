@@ -32,9 +32,6 @@ que se utiliza en el contexto del preprocesamiento lo que facilita el trabajo co
 data frame.
 }
 
-\examples{
-calcular_frecuencia(mtcars, hp)
-}
 \author{
 Gerardo Orantes Jordan, \email{gorantes@gerenciadelpoder.com.mx}
 }

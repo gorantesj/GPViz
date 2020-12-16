@@ -31,9 +31,6 @@ que se utiliza en el contexto del preprocesamiento lo que facilita el trabajo co
 data frame calculando sus medidas de tendencia central.
 }
 
-\examples{
-calcular_mtc(mtcars, mpg, wt)
-}
 \author{
 Gerardo Orantes Jordan, \email{gorantes@gerenciadelpoder.com.mx}
 }
