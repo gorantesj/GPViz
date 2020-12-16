@@ -20,6 +20,7 @@ Imports:
     dplyr,
     ggplot2,
     scales,
-    colortools
+    colortools,
+    plotwidgets
 URL: https://github.com/gorantesj/GPViz
 BugReports: https://github.com/gorantesj/GPViz/issues

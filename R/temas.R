@@ -42,6 +42,8 @@ gota_GP <- function(g){
       plot.title = element_text(size = 16*.75),
       plot.subtitle = element_text(colour="#4D4D4D",size = 13*.75),
       axis.title = element_text(size = 12*.75),
+      # Ejes
+      axis.text.y=element_blank(),
       # Panel
       panel.background = element_blank(),
       panel.grid.major.x = element_line(color = "grey50", size = .1),

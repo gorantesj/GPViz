@@ -100,11 +100,16 @@ frecuencia_barras <- function(bd, x, y, color_base = "#912F40") {
 }
 
 frecuencia_gota <- function(bd, x, y, color_base = "#912F40") {
+  color_texto <- if_else(plotwidgets::col2hsl(color_base)["L",1]>.7,
+                         "black",
+                         "white")
   g <- bd %>%
     ggplot(aes(xend = {{ x }}, x = {{ x }}, y = 0, yend = {{ y }})) +
-    geom_text(hjust=0,vjust=0, aes(label={{x}}), nudge_x = .1) +
+    geom_text(hjust=0,vjust=0, aes(label={{x}}), nudge_x = .1,fontface="bold",
+              color=colortools::complementary(color = color_base, plot = F)[[2]]) +
     geom_segment(stat = "identity", color = color_base, size = 24*.75/.pt, lineend = "round") +
-    geom_text(hjust=1,vjust=0.5, aes(label={{x}}, y={{y}}), size = 12*.75/.pt) +
+    geom_text(hjust=1,vjust=0.5, aes(label={{x}}, y={{y}}), size = 12*.75/.pt,
+              color=color_texto) +
     scale_y_continuous(
       breaks = function(y, n = 4) {
         l <- pretty(y, n)
@@ -117,14 +122,19 @@ frecuencia_gota <- function(bd, x, y, color_base = "#912F40") {
 }
 
 frecuencia_paleta <- function(bd, x, y, color_base = "#912F40") {
+  color_texto <- if_else(plotwidgets::col2hsl(color_base)["L",1]>.7,
+                         "black",
+                         "white")
   g <- bd %>%
     ggplot() +
-    geom_segment(aes(xend = {{ x }}, x = {{ x }}, y = 0, yend = {{ y }}), size = 10 / nrow(bd), lineend = "round", color = colortools::complementary(color = color_base, plot = F)[[2]]) +
+    geom_segment(aes(xend = {{ x }}, x = {{ x }}, y = 0, yend = {{ y }}),
+                 size = 10 / nrow(bd), lineend = "round",
+                 color = colortools::complementary(color = color_base, plot = F)[[2]]) +
     geom_point(aes(x = {{ x }}, y = {{ y }}),
-      color = color_base, size = 3.1 * 11 * .75 / .pt
+      color = color_base, size = 3.1 * 12 * .75 / .pt
     ) +
     geom_text(aes(x = {{ x }}, y = {{ y }}, label = formatear_num({{ y }})),
-      color = "white", size = 11 * .75 / .pt
+      color = color_texto, size = 12 * .75 / .pt
     ) +
     scale_size_area() +
     scale_y_continuous(
