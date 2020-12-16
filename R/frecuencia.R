@@ -1,14 +1,24 @@
-#' Title
+#' Procesaimento de calcular frecuencia
+#' @author Gerardo Orantes Jordan, \email{gorantes@@gerenciadelpoder.com.mx}
+#' @section Quasiquotation:
 #'
-#' @param bd
-#' @param variable
-#' @param n_niveles
-#' @param otro
+#' `calcular_frecuencia()` es una funci\'{o}n [quoting function][rlang::quotation]. Esto significa
+#' que se utiliza en el contexto del preprocesamiento lo que facilita el trabajo con variables del
+#' data frame.
+#' @param bd  es el data frame de entrada
+#' @param variable la nombre de variable a procesar
+#' @param n_niveles este es un número entero positivo que nos da la cantidad de
+#' variables a mostrar, por defecto son n_niveles = 9
+#' @param otro este parámetro es para poner el nombre la la variable "Otro" "otros"
+#' y que se muestre
 #'
-#' @return
+#' @return esta funcion regresa un data frame con los valores de las frecuencias, la frecuencua es n,
+#' de cada variable seleccionada
 #' @export
 #' @import dplyr ggplot2
 #' @examples
+#' calcular_frecuencia(mtcars, hp)
+
 calcular_frecuencia <- function(bd, variable, n_niveles = 9, otro = "Otro") {
   res <- bd %>%
     count({{ variable }}) %>%
@@ -23,19 +33,30 @@ calcular_frecuencia <- function(bd, variable, n_niveles = 9, otro = "Otro") {
 }
 
 #' Graficar frecuencias estilo GP
+#' @author Gerardo Orantes Jordan, \email{gorantes@@gerenciadelpoder.com.mx}
+#' @section Quasiquotation:
 #'
-#' @param bd base de datos
-#' @param variable
-#' @param frecuencia
-#' @param n_niveles
-#' @param otro
-#' @param grafico
-#' @param color_base
+#' `graficar_frecuencia()` es una funci\'{o}n [quoting function][rlang::quotation]. Esto significa
+#' que se utiliza en el contexto del proceso de graficación de elementos ggplot2.
+#' @param bd el data frame de entrada
+#' @param variable la nombre de variable a procesar
+#' @param frecuencia esta es la variable que nos indica la frecuencia de cierto elemento
+#' en un data frame
+#' @param n_niveles esta es un filtro de niveles, es decir filtra los n_niveles más altos,
+#'  ademmás pertenece al par\'{a}metro de la funci\'{o}n calcular_frecuencia
+#' @param otro este parámetro es para poner el nombre la la variable "Otro" "otros"
+#' y que se muestre.
+#' @param grafico este par\'{a}mtero nos indica cual es gr\'{a}fico a elegir: entre
+#' barras, gota y paleta. Por defecto es barras.
+#' @param color_base el color del gr\'{a}fico, por defecto es color Gerencia del poder.
 #'
-#' @return
+#' @return regresa un gráfico ggplot2
 #' @export
 #'
 #' @examples
+#'
+graficar_frecuencia(mtcars, hp, frecuencia = n, n_niveles = 9)
+
 graficar_frecuencia <- function(bd,
                                 variable,
                                 frecuencia = n,
@@ -68,6 +89,22 @@ graficar_frecuencia <- function(bd,
   return(g)
 }
 
+#' Graficar frecuencia de barras estilo GP
+#' @author Gerardo Orantes Jordan, \email{gorantes@@gerenciadelpoder.com.mx}
+#' @section Quasiquotation:
+#'
+#' `frecuencia_barras()` es una funci\'{o}n [quoting function][rlang::quotation]. Esto significa
+#' que se utiliza en el contexto del proceso de graficación de elementos ggplot2 y es una gráfica de barras.
+#' @param bd el data frame de entrada
+#' @param x es la variable dependiente, eje x
+#' @param y es la variable independiente, eje x, a ser la frecuencia
+#' @param color_base el color del gr\'{a}fico, por defecto es color Gerencia del poder.
+#'
+#' @return regresa un gráfico de barras ggplot2 a utilizar con frecuencia
+#' @export
+#'
+#' @examples
+#' frecuencia_barras(mtcars, hp, mpg)
 frecuencia_barras <- function(bd, x, y, color_base = "#912F40") {
   g <- bd %>%
     ggplot(aes(x = {{ x }}, y = {{ y }})) +
@@ -86,7 +123,21 @@ frecuencia_barras <- function(bd, x, y, color_base = "#912F40") {
     )
   return(g)
 }
-
+#' Graficar frecuencia de barras con esquinas suaves estilo GP
+#' @author Gerardo Orantes Jordan, \email{gorantes@@gerenciadelpoder.com.mx}
+#' @section Quasiquotation:
+#' `frecuencia_gota()` es una funci\'{o}n [quoting function][rlang::quotation]. Esto significa
+#' que se utiliza en el contexto del proceso de graficación de elementos ggplot2 y es una gráfica de barras con
+#' esquinas suaves.
+#' @param bd el data frame de entrada
+#' @param x es la variable dependiente, eje y
+#' @param y es la variable independiente, eje x, a ser la frecuencia
+#' @param color_base el color del gr\'{a}fico, por defecto es color Gerencia del poder.
+#' @return regresa un gráfico de barras ggplot2 a utilizar con frecuencia
+#' @export
+#'
+#' @examples
+#' frecuencia_gota(mtcars, carb, gear)
 frecuencia_gota <- function(bd, x, y, color_base = "#912F40") {
   g <- bd %>%
     ggplot(aes(xend = {{ x }}, x = {{ x }}, y = 0, yend = {{ y }})) +
@@ -103,7 +154,21 @@ frecuencia_gota <- function(bd, x, y, color_base = "#912F40") {
     )
   return(g)
 }
-
+#' Graficar frecuencia en paleta estilo GP
+#' @author Gerardo Orantes Jordan, \email{gorantes@@gerenciadelpoder.com.mx}
+#' @section Quasiquotation:
+#' `frecuencia_gota()` es una funci\'{o}n [quoting function][rlang::quotation]. Esto significa
+#' que se utiliza en el contexto del proceso de graficación de elementos ggplot2 y es una gráfica de barras con
+#' esquinas suaves. Utiliza como auxiliar dentro de las labels la funci\'{o}n `formatear_num()`
+#' @param bd el data frame de entrada
+#' @param x es la variable dependiente, eje y
+#' @param y es la variable independiente, eje x, a ser la frecuencia
+#' @param color_base el color del gr\'{a}fico, por defecto es color Gerencia del poder.
+#' @return regresa un gráfico de barras ggplot2 a utilizar con frecuencia
+#' @export
+#'
+#' @examples
+#' frecuencia_paleta(mtcars, mpg, gear)
 frecuencia_paleta <- function(bd, x, y, color_base = "#912F40") {
   g <- bd %>%
     ggplot() +
