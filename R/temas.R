@@ -88,7 +88,7 @@ caja_violin_GP <- function(g){
       axis.title = element_text(size = 12*.75),
       # Panel
       panel.background = element_blank(),
-      panel.grid.major.x = element_line(color = "grey50", size = .1),
+      panel.grid.major.y = element_line(color = "grey50", size = .1),
       # Ticks
       axis.ticks = element_blank(),
     )

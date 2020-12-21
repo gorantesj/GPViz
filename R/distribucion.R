@@ -54,13 +54,14 @@ distribucion_caja_violin <-function(bd, variable, grupo, color_base){
     ggplot(aes(x={{grupo}},
                 y={{variable}})) +
     geom_violin(width=1, alpha = .3, fill=color_base,
-                color = colortools::complementary(color = color_base, plot = F)[[2]]) +
-    geom_boxplot(width=0.1, fill=color_base,
+                color = "transparent") +
+    geom_boxplot(width=0.1, fill=color_base, outlier.alpha = .2,
                  color=colortools::complementary(color = color_base, plot = F)[[2]],
                  alpha = .8) +
     geom_point(
                color = color_texto,
                shape = 18,
-               stat="summary",fun=median)
+               stat="summary",fun=median)+
+    coord_flip()
   return(g)
 }
