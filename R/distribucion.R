@@ -6,8 +6,12 @@ graficar_distribucion <- function(bd,
                                   color_base = "#912F40"){
   g <- switch(grafico,
               histograma = distribucion_histograma(bd, variable = {{variable}},
+                                                   color_base = color_base, grupo={{grupo}}),
+              caja_violin=distribucion_caja_violin(bd, variable = {{variable}},
                                                    color_base = color_base, grupo={{grupo}})
               )
+  g <- g %>%
+    aplicar_tema(grafico = grafico, tema = tema)
   return(g)
 }
 
