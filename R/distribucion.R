@@ -49,7 +49,7 @@ distribucion_caja_violin <-function(bd, variable, grupo, color_base){
   g <- bd %>%
     group_by({{grupo}}) %>%
     mutate({{grupo}}:=paste({{grupo}},
-                            scales::comma(sum({{variable}})),
+                            scales::comma(n()),
                             sep = "\n")) %>%
     ggplot(aes(x={{grupo}},
                 y={{variable}})) +
@@ -62,6 +62,7 @@ distribucion_caja_violin <-function(bd, variable, grupo, color_base){
                color = color_texto,
                shape = 18,
                stat="summary",fun=median)+
+    scale_y_continuous(labels = scales::comma_format())+
     coord_flip()
   return(g)
 }
