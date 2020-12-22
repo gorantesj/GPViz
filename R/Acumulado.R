@@ -30,11 +30,11 @@ bd %>% mutate(alfa = seq(0.9, 0, length.out = nrow(bd)),
   #Plot
   ggplot(aes(x=fecha, y= n)) +
   geom_area( fill = "#BFBD28", alpha = 0.35)+
-  # Degradado
+  # "Degradado"
   geom_hline( aes(yintercept = yinter, alpha = alfa),
              size  = 5, color = "white")+
   scale_alpha_identity()+
-  # linea (está después porque si no se hace degradada)
+  # linea (está después porque si no se hace "degradada")
   geom_line( color="#BFBD28", size=1, linetype=2) +
     # Etiquetas
   labs(x = "Fecha", y = "Acumulado")+
